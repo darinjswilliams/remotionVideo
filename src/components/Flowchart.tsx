@@ -3,15 +3,32 @@ import { interpolate, useCurrentFrame, spring, useVideoConfig } from "remotion";
 
 export const Flowchart: React.FC<{
   startFrame: number;
+  endFrame?: number;
   x: number;
   y: number;
-}> = ({ startFrame, x, y }) => {
+}> = ({ startFrame, endFrame, x, y }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const localFrame = frame - startFrame;
   if (localFrame < 0) return null;
 
+  // Fade out before endFrame
+  let fadeOut = 1;
+  if (endFrame !== undefined) {
+    if (frame >= endFrame) return null;
+    fadeOut = interpolate(frame, [endFrame - 15, endFrame], [1, 0], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    });
+  }
+
   const entrance = spring({ frame: localFrame, fps, config: { damping: 12 } });
+
+  // Bright colors: neon green for nodes, orange for lines, white text
+  const nodeColor = "#00ff88";
+  const lineColor = "#ff9900";
+  const textColor = "#ffffff";
+  const nodeFill = "rgba(0,255,136,0.2)";
 
   const nodes = [
     { label: "Request", cx: 0, cy: 0 },
@@ -27,11 +44,22 @@ export const Flowchart: React.FC<{
         position: "absolute",
         left: x,
         top: y,
-        opacity: entrance,
+        opacity: entrance * fadeOut,
         transform: `scale(${entrance * 0.7})`,
+        zIndex: 10,
       }}
     >
       <svg width={380} height={80} viewBox="-10 -50 400 100">
+        {/* Glow filter */}
+        <defs>
+          <filter id="flowGlow">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
         {/* Lines */}
         {nodes.slice(0, -1).map((node, i) => {
           const next = nodes[i + 1];
@@ -46,9 +74,10 @@ export const Flowchart: React.FC<{
               y1={node.cy}
               x2={node.cx + 30 + (next.cx - node.cx) * progress}
               y2={node.cy + (next.cy - node.cy) * progress}
-              stroke="#00ccff"
-              strokeWidth={2}
-              opacity={0.7}
+              stroke={lineColor}
+              strokeWidth={2.5}
+              opacity={0.9}
+              filter="url(#flowGlow)"
             />
           );
         })}
@@ -66,16 +95,18 @@ export const Flowchart: React.FC<{
                 width={60}
                 height={30}
                 rx={6}
-                fill="rgba(0,204,255,0.15)"
-                stroke="#00ccff"
-                strokeWidth={1}
+                fill={nodeFill}
+                stroke={nodeColor}
+                strokeWidth={1.5}
+                filter="url(#flowGlow)"
               />
               <text
                 x={node.cx + 30}
                 y={node.cy + 4}
-                fill="#00ccff"
+                fill={textColor}
                 fontSize={10}
                 fontFamily="Courier New"
+                fontWeight="bold"
                 textAnchor="middle"
               >
                 {node.label}

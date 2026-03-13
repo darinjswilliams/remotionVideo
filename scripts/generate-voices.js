@@ -69,6 +69,22 @@ const DIALOGUE = [
     speaker: "man",
     text: "I just wanted coffee.",
   },
+  // Sequential AI responses after "I just wanted coffee"
+  {
+    id: "s1-langgraph-state",
+    speaker: "langgraph",
+    text: "I am updating my state...",
+  },
+  {
+    id: "s1-openai-memory",
+    speaker: "openai",
+    text: "Memory... Memory.",
+  },
+  {
+    id: "s1-crewai-memory",
+    speaker: "crewai",
+    text: "Memory is explicit, not automatic.",
+  },
 
   // ===== SCENE 2: "Unexpected Connection" =====
   {
@@ -90,6 +106,22 @@ const DIALOGUE = [
     id: "s2-man",
     speaker: "man",
     text: "Why don't you just... talk to each other?",
+  },
+  // "Hmmm, great decision..." -- generate with each AI voice, then layer them
+  {
+    id: "s2-all-langgraph",
+    speaker: "langgraph",
+    text: "Hmmm, great decision. Do you mean MCP or A2A?",
+  },
+  {
+    id: "s2-all-crewai",
+    speaker: "crewai",
+    text: "Hmmm, great decision. Do you mean MCP or A2A?",
+  },
+  {
+    id: "s2-all-openai",
+    speaker: "openai",
+    text: "Hmmm, great decision. Do you mean MCP or A2A?",
   },
   {
     id: "s2-man-thanks",

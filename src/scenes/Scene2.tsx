@@ -72,7 +72,7 @@ export const Scene2: React.FC = () => {
       <CafeTable x={500} y={555} radius={65} />
 
       {/* Holographic projector -- already active from Scene 1.
-          BaristaBot delivers coffee at frame 660 to the table. */}
+          BaristaBot delivers coffee at frame 760 to the table. */}
       <HolographicProjector
         x={470}
         y={530}
@@ -80,7 +80,7 @@ export const Scene2: React.FC = () => {
         alreadyActive={true}
         scale={1.0}
         baristaDelivery={{
-          startFrame: 660,
+          startFrame: 760,
           tableX: 460,
           tableY: 510,
         }}
@@ -122,8 +122,17 @@ export const Scene2: React.FC = () => {
         position={{ x: 340, y: 450 }}
       />
 
+      {/* All AIs respond simultaneously after a brief beat */}
+      <DialogueBubble
+        speaker="all"
+        text={"\"Hmmm, great decision. Do you mean MCP or A2A?\""}
+        startFrame={540}
+        durationFrames={100}
+        position={{ x: 380, y: 140 }}
+      />
+
       {/* Dramatic pause -- all AIs "thinking" */}
-      <Sequence from={530} durationInFrames={60}>
+      <Sequence from={650} durationInFrames={60}>
         <div
           style={{
             position: "absolute",
@@ -134,7 +143,7 @@ export const Scene2: React.FC = () => {
             fontSize: 24,
             color: "#ffffff40",
             textAlign: "center",
-            opacity: interpolate(frame - 530, [0, 30, 60], [0, 1, 0]),
+            opacity: interpolate(frame - 650, [0, 30, 60], [0, 1, 0]),
           }}
         >
           . . . processing . . .
@@ -142,7 +151,7 @@ export const Scene2: React.FC = () => {
       </Sequence>
 
       {/* Reorganization visuals */}
-      <Sequence from={600} durationInFrames={100}>
+      <Sequence from={720} durationInFrames={100}>
         <div
           style={{
             position: "absolute",
@@ -151,7 +160,7 @@ export const Scene2: React.FC = () => {
             fontFamily: "'Courier New', monospace",
             fontSize: 11,
             color: "#00ccff",
-            opacity: interpolate(frame - 600, [0, 20], [0, 0.8], {
+            opacity: interpolate(frame - 720, [0, 20], [0, 0.8], {
               extrapolateRight: "clamp",
             }),
           }}
@@ -160,7 +169,7 @@ export const Scene2: React.FC = () => {
         </div>
       </Sequence>
 
-      <Sequence from={620} durationInFrames={100}>
+      <Sequence from={740} durationInFrames={100}>
         <div
           style={{
             position: "absolute",
@@ -169,7 +178,7 @@ export const Scene2: React.FC = () => {
             fontFamily: "'Courier New', monospace",
             fontSize: 11,
             color: "#ff6600",
-            opacity: interpolate(frame - 620, [0, 20], [0, 0.8], {
+            opacity: interpolate(frame - 740, [0, 20], [0, 0.8], {
               extrapolateRight: "clamp",
             }),
           }}
@@ -178,7 +187,7 @@ export const Scene2: React.FC = () => {
         </div>
       </Sequence>
 
-      <Sequence from={640} durationInFrames={100}>
+      <Sequence from={760} durationInFrames={100}>
         <div
           style={{
             position: "absolute",
@@ -188,7 +197,7 @@ export const Scene2: React.FC = () => {
             fontFamily: "'Courier New', monospace",
             fontSize: 11,
             color: "#10a37f",
-            opacity: interpolate(frame - 640, [0, 20], [0, 0.8], {
+            opacity: interpolate(frame - 760, [0, 20], [0, 0.8], {
               extrapolateRight: "clamp",
             }),
           }}
@@ -198,7 +207,7 @@ export const Scene2: React.FC = () => {
       </Sequence>
 
       {/* Espresso appears on the circular table when BaristaBot reaches it */}
-      <Sequence from={690}>
+      <Sequence from={790}>
         <CappuccinoReveal
           startFrame={0}
           x={415}
@@ -211,8 +220,8 @@ export const Scene2: React.FC = () => {
       <DialogueBubble
         speaker="man"
         text={"\"Thank you! For keeping Humans in the Loop.\""}
-        startFrame={730}
-        durationFrames={100}
+        startFrame={830}
+        durationFrames={70}
         position={{ x: 340, y: 440 }}
       />
 
@@ -223,12 +232,16 @@ export const Scene2: React.FC = () => {
           { file: "s2-langgraph.mp3", startFrame: 220 },
           { file: "s2-openai.mp3", startFrame: 300 },
           { file: "s2-man.mp3", startFrame: 400 },
-          { file: "s2-man-thanks.mp3", startFrame: 730 },
+          // All three AIs respond simultaneously at frame 540
+          { file: "s2-all-langgraph.mp3", startFrame: 540 },
+          { file: "s2-all-crewai.mp3", startFrame: 540 },
+          { file: "s2-all-openai.mp3", startFrame: 540 },
+          { file: "s2-man-thanks.mp3", startFrame: 830 },
         ]}
       />
 
       {/* Foam art text */}
-      <Sequence from={790} durationInFrames={110}>
+      <Sequence from={870} durationInFrames={30}>
         <div
           style={{
             position: "absolute",
@@ -242,7 +255,7 @@ export const Scene2: React.FC = () => {
             textShadow: "0 0 10px #ff00ff, 0 0 20px #ff00ff60",
             textAlign: "center",
             letterSpacing: 3,
-            opacity: interpolate(frame - 760, [0, 30], [0, 1], {
+            opacity: interpolate(frame - 870, [0, 30], [0, 1], {
               extrapolateRight: "clamp",
             }),
           }}

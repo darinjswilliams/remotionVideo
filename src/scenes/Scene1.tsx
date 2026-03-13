@@ -82,8 +82,37 @@ export const Scene1: React.FC = () => {
         position={{ x: 400, y: 450 }}
       />
 
-      {/* LangGraph projects flowchart */}
-      <Flowchart startFrame={640} x={50} y={440} />
+      {/* After "I just wanted coffee", the AIs respond sequentially */}
+
+      {/* Flowchart appears with LangGraph and disappears when he finishes */}
+      <Flowchart startFrame={645} endFrame={710} x={50} y={440} />
+
+      {/* 1. LangGraph: "I am updating my state..." */}
+      <DialogueBubble
+        speaker="langgraph"
+        text={"\"I am updating my state...\""}
+        startFrame={645}
+        durationFrames={65}
+        position={{ x: 60, y: 200 }}
+      />
+
+      {/* 2. OpenAI: "Memory... Memory." */}
+      <DialogueBubble
+        speaker="openai"
+        text={"\"Memory... Memory.\""}
+        startFrame={720}
+        durationFrames={60}
+        position={{ x: 300, y: 100 }}
+      />
+
+      {/* 3. CrewAI: "Memory is explicit, not automatic." */}
+      <DialogueBubble
+        speaker="crewai"
+        text={"\"Memory is explicit, not automatic.\""}
+        startFrame={790}
+        durationFrames={70}
+        position={{ x: 580, y: 200 }}
+      />
 
       {/* ========== Audio ========== */}
       <SceneAudio
@@ -93,11 +122,14 @@ export const Scene1: React.FC = () => {
           { file: "s1-crewai.mp3", startFrame: 280 },
           { file: "s1-openai.mp3", startFrame: 400 },
           { file: "s1-man-deadpan.mp3", startFrame: 530 },
+          { file: "s1-langgraph-state.mp3", startFrame: 645 },
+          { file: "s1-openai-memory.mp3", startFrame: 720 },
+          { file: "s1-crewai-memory.mp3", startFrame: 790 },
         ]}
       />
 
       {/* Title card at end */}
-      <Sequence from={750} durationInFrames={150}>
+      <Sequence from={865} durationInFrames={35}>
         <TitleCard
           text="When Agentic AI Overthinks Your Coffee"
           subtitle="Scene 1 of 3"
