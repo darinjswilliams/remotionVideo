@@ -8,6 +8,7 @@ import { TitleCard } from "../components/TitleCard";
 import { HolographicProjector } from "../components/HolographicProjector";
 import { CafeTable } from "../components/CafeTable";
 import { SceneAudio } from "../components/SceneAudio";
+import { TinyRobots } from "../components/TinyRobots";
 
 // Scene 1: "Ordering the Impossible" -- 30 seconds at 30fps = 900 frames
 export const Scene1: React.FC = () => {
@@ -34,6 +35,10 @@ export const Scene1: React.FC = () => {
         pressDelay={25}
         scale={1.0}
       />
+
+      {/* Two tiny robots appear when CrewAI mentions assembling a team.
+          They hover near BaristaBot and persist through end of Scene 1. */}
+      <TinyRobots x={840} y={270} appearFrame={280} />
 
       {/* ========== Dialogue sequence ========== */}
 
@@ -77,22 +82,22 @@ export const Scene1: React.FC = () => {
       <DialogueBubble
         speaker="man"
         text={"\"...I just wanted coffee.\""}
-        startFrame={530}
-        durationFrames={100}
+        startFrame={520}
+        durationFrames={80}
         position={{ x: 400, y: 450 }}
       />
 
       {/* After "I just wanted coffee", the AIs respond sequentially */}
 
       {/* Flowchart appears with LangGraph and disappears when he finishes */}
-      <Flowchart startFrame={645} endFrame={710} x={50} y={440} />
+      <Flowchart startFrame={615} endFrame={680} x={50} y={440} />
 
       {/* 1. LangGraph: "I am updating my state..." */}
       <DialogueBubble
         speaker="langgraph"
         text={"\"I am updating my state...\""}
-        startFrame={645}
-        durationFrames={65}
+        startFrame={615}
+        durationFrames={60}
         position={{ x: 60, y: 200 }}
       />
 
@@ -100,8 +105,8 @@ export const Scene1: React.FC = () => {
       <DialogueBubble
         speaker="openai"
         text={"\"Memory... Memory.\""}
-        startFrame={720}
-        durationFrames={60}
+        startFrame={685}
+        durationFrames={55}
         position={{ x: 300, y: 100 }}
       />
 
@@ -109,7 +114,7 @@ export const Scene1: React.FC = () => {
       <DialogueBubble
         speaker="crewai"
         text={"\"Memory is explicit, not automatic.\""}
-        startFrame={790}
+        startFrame={750}
         durationFrames={70}
         position={{ x: 580, y: 200 }}
       />
@@ -121,15 +126,15 @@ export const Scene1: React.FC = () => {
           { file: "s1-langgraph.mp3", startFrame: 170 },
           { file: "s1-crewai.mp3", startFrame: 280 },
           { file: "s1-openai.mp3", startFrame: 400 },
-          { file: "s1-man-deadpan.mp3", startFrame: 530 },
-          { file: "s1-langgraph-state.mp3", startFrame: 645 },
-          { file: "s1-openai-memory.mp3", startFrame: 720 },
-          { file: "s1-crewai-memory.mp3", startFrame: 790 },
+          { file: "s1-man-deadpan.mp3", startFrame: 520 },
+          { file: "s1-langgraph-state.mp3", startFrame: 615 },
+          { file: "s1-openai-memory.mp3", startFrame: 685 },
+          { file: "s1-crewai-memory.mp3", startFrame: 750 },
         ]}
       />
 
-      {/* Title card at end */}
-      <Sequence from={865} durationInFrames={35}>
+      {/* Title card at end -- appears after CrewAI finishes (750+70=820) */}
+      <Sequence from={830} durationInFrames={70}>
         <TitleCard
           text="When Agentic AI Overthinks Your Coffee"
           subtitle="Scene 1 of 3"

@@ -25,7 +25,7 @@ export const Scene3: React.FC = () => {
       <CafeBackground />
 
       {/* Human character -- relaxed, warm scene */}
-      <Character type="man" x={120} y={-10} enterDelay={0} speaking={frame > 20 && frame < 150} />
+      <Character type="man" x={120} y={-10} enterDelay={0} speaking={(frame > 20 && frame < 150) || (frame > 515 && frame < 595) || (frame > 610 && frame < 710)} />
 
       {/* Circular cafe table near human's left hand */}
       <CafeTable x={500} y={555} radius={65} />
@@ -141,7 +141,7 @@ export const Scene3: React.FC = () => {
         speaker="man"
         text={"\"So you're not replacing humans... you just need better workflows?\""}
         startFrame={30}
-        durationFrames={130}
+        durationFrames={120}
         position={{ x: 330, y: 440 }}
       />
 
@@ -149,8 +149,8 @@ export const Scene3: React.FC = () => {
       <DialogueBubble
         speaker="langgraph"
         text={"\"Structured coordination improves outcomes.\""}
-        startFrame={180}
-        durationFrames={90}
+        startFrame={165}
+        durationFrames={80}
         position={{ x: 60, y: 200 }}
       />
 
@@ -158,8 +158,8 @@ export const Scene3: React.FC = () => {
       <DialogueBubble
         speaker="crewai"
         text={"\"Teamwork makes the dream work!\""}
-        startFrame={280}
-        durationFrames={80}
+        startFrame={255}
+        durationFrames={70}
         position={{ x: 580, y: 200 }}
       />
 
@@ -167,8 +167,8 @@ export const Scene3: React.FC = () => {
       <DialogueBubble
         speaker="openai"
         text={"\"Human intent remains the highest-quality signal.\""}
-        startFrame={370}
-        durationFrames={90}
+        startFrame={340}
+        durationFrames={80}
         position={{ x: 300, y: 100 }}
       />
 
@@ -190,21 +190,30 @@ export const Scene3: React.FC = () => {
         </div>
       </Sequence>
 
-      {/* Quantum foam joke */}
+      {/* "I just love autonomous coffee" -- spoken while cup floats back down (510-545) */}
       <DialogueBubble
         speaker="man"
-        text={"\"Good. Because I still don't understand quantum foam.\""}
-        startFrame={550}
-        durationFrames={110}
+        text={"\"I just love... autonomous coffee.\""}
+        startFrame={515}
+        durationFrames={80}
         position={{ x: 340, y: 450 }}
       />
 
-      {/* All AIs respond together */}
+      {/* Quantum foam joke -- after cup lands back on table (545) */}
+      <DialogueBubble
+        speaker="man"
+        text={"\"Good. Because I still don't understand quantum foam.\""}
+        startFrame={610}
+        durationFrames={100}
+        position={{ x: 340, y: 450 }}
+      />
+
+      {/* All AIs respond together -- immediately after quantum foam line */}
       <DialogueBubble
         speaker="all"
         text={"\"Neither do we.\""}
-        startFrame={680}
-        durationFrames={90}
+        startFrame={720}
+        durationFrames={80}
         position={{ x: 380, y: 140 }}
       />
 
@@ -212,19 +221,20 @@ export const Scene3: React.FC = () => {
       <SceneAudio
         voiceLines={[
           { file: "s3-man-question.mp3", startFrame: 30 },
-          { file: "s3-langgraph.mp3", startFrame: 180 },
-          { file: "s3-crewai.mp3", startFrame: 280 },
-          { file: "s3-openai.mp3", startFrame: 370 },
-          { file: "s3-man-joke.mp3", startFrame: 550 },
-          // All three AIs speak together at frame 680
-          { file: "s3-all-langgraph.mp3", startFrame: 680 },
-          { file: "s3-all-crewai.mp3", startFrame: 680 },
-          { file: "s3-all-openai.mp3", startFrame: 680 },
+          { file: "s3-langgraph.mp3", startFrame: 165 },
+          { file: "s3-crewai.mp3", startFrame: 255 },
+          { file: "s3-openai.mp3", startFrame: 340 },
+          { file: "s3-man-coffee.mp3", startFrame: 515 },
+          { file: "s3-man-joke.mp3", startFrame: 610 },
+          // All three AIs speak together
+          { file: "s3-all-langgraph.mp3", startFrame: 720 },
+          { file: "s3-all-crewai.mp3", startFrame: 720 },
+          { file: "s3-all-openai.mp3", startFrame: 720 },
         ]}
       />
 
       {/* Freeze frame effect */}
-      <Sequence from={780}>
+      <Sequence from={810}>
         {/* Scan lines */}
         <div
           style={{
@@ -233,7 +243,7 @@ export const Scene3: React.FC = () => {
             background:
               "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)",
             zIndex: 50,
-            opacity: interpolate(frame - 780, [0, 30], [0, 0.6], {
+            opacity: interpolate(frame - 810, [0, 30], [0, 0.6], {
               extrapolateRight: "clamp",
             }),
           }}
@@ -248,7 +258,7 @@ export const Scene3: React.FC = () => {
             transform: "translateX(-50%)",
             textAlign: "center",
             zIndex: 60,
-            opacity: interpolate(frame - 790, [0, 40], [0, 1], {
+            opacity: interpolate(frame - 820, [0, 40], [0, 1], {
               extrapolateRight: "clamp",
             }),
           }}
@@ -274,7 +284,7 @@ export const Scene3: React.FC = () => {
               color: "#00ccff",
               textShadow: "0 0 8px #00ccff",
               letterSpacing: 6,
-              opacity: interpolate(frame - 820, [0, 30], [0, 1], {
+              opacity: interpolate(frame - 850, [0, 30], [0, 1], {
                 extrapolateRight: "clamp",
               }),
             }}
@@ -288,7 +298,7 @@ export const Scene3: React.FC = () => {
               color: "#ffffff60",
               marginTop: 12,
               letterSpacing: 2,
-              opacity: interpolate(frame - 840, [0, 30], [0, 1], {
+              opacity: interpolate(frame - 870, [0, 30], [0, 1], {
                 extrapolateRight: "clamp",
               }),
             }}
